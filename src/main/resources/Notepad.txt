@@ -1,0 +1,22 @@
+Annotations
+1. SpringApplication: This is a combination of three different annotations namely: Configuration, ComponentScan, EnableAutoConfiguration
+  a. EnableAutoConfiguration: This automatically configures the spring boot application based on the jar dependency that we have added in our pom.xml
+  b. ComponentScan: This helps you scan your bean so it can be accessible throughout the codebase.
+  c: Configuration: We use this for java based configurations where we can differentiate the bean definition inside a class so that spring ioc can load it
+        Stereotype annotations
+  1. @Component
+  2. @Service
+  3. @RestController/@Controller
+  4. @Repository
+  They are used to create spring bean automatically in the application context
+        Spring core annotations
+  1. @Configuration
+  2. @Bean
+  3. @Autowired
+  4. @Qualifier
+  5. @Lazy
+  6. @Value
+  7. @PropertySource
+  8. @ConfigurationProperties
+  9. @Profile
+  10.@Scope
