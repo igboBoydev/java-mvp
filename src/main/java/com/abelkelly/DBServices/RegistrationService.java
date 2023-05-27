@@ -1,5 +1,6 @@
 package com.abelkelly.DBServices;
 
+import com.abelkelly.Config.Helpers;
 import com.abelkelly.Config.JwtService;
 import com.abelkelly.EmailService.EmailSender;
 import com.abelkelly.EmailService.EmailValidator;
@@ -8,7 +9,9 @@ import com.abelkelly.Models.AppUser;
 import com.abelkelly.Models.ConfirmationToken;
 import com.abelkelly.Repository.AppUserRepository;
 import com.abelkelly.RequestSchema.RegistrationRequest;
+import com.abelkelly.ResponseSchema.LoginResponse;
 import com.abelkelly.Roles.AppUserRole;
+import com.abelkelly.Token.TokenRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,8 @@ public class RegistrationService {
     private final EmailValidator emailValidator;
     private final JwtService jwtService;
     private final AppUserRepository appUserRepository;
+    private final Helpers helpers;
+    private final TokenRepository tokenRepository;
     private final LoginService loginService;
 
     private final ConfirmationTokenService confirmationTokenService;
@@ -47,7 +52,7 @@ public class RegistrationService {
     }
 
     @Transactional
-    public String confirmToken(String token) {
+    public LoginResponse confirmToken(String token) {
         ConfirmationToken confirmationToken = confirmationTokenService
                 .getToken(token)
                 .orElseThrow(() ->
@@ -74,8 +79,9 @@ public class RegistrationService {
                 getEmail()).
                 orElseThrow(() -> new UsernameNotFoundException("User not found"));
         var jwtToken = jwtService.generateToken(user);
-       // loginService.saveUserToken(user, jwtToken);
-        return jwtToken;
+//        String refreshToken = jwtService.generateRefreshToken(user);
+        helpers.saveUserToken(user, jwtToken);
+        return new LoginResponse(jwtToken);
     }
 
     private String buildEmail(String name, String link) {

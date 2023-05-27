@@ -1,6 +1,7 @@
 package com.abelkelly.Models;
 
 import com.abelkelly.Roles.AppUserRole;
+import com.abelkelly.Token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,7 +33,7 @@ public class AppUser implements UserDetails {
             strategy = GenerationType.SEQUENCE,
             generator = "student_sequence"
     )
-    private Long id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
@@ -45,8 +46,8 @@ public class AppUser implements UserDetails {
 //    @OneToOne(mappedBy = "user")
 //    private RefreshToken refreshToken;
 
-//    @OneToMany(mappedBy = "users")
-//    private List<Token> token;
+    @OneToMany(mappedBy = "users")
+    private List<Token> token;
 
     public AppUser(String firstName, String lastName, String email, String password, AppUserRole appUserRole) {
         this.firstName = firstName;

@@ -9,7 +9,7 @@ management:
 spring:
   datasource:
     password:
-    url: jdbc:postgresql://localhost:5432/java_api
+    url: jdbc:postgresql://localhost:5432/java_registration
     username:
   jpa:
     hibernate:

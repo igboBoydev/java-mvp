@@ -2,6 +2,7 @@ package com.abelkelly.ControllersRoutes;
 
 import com.abelkelly.DBServices.RegistrationService;
 import com.abelkelly.RequestSchema.RegistrationRequest;
+import com.abelkelly.ResponseSchema.LoginResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public class RegisterController {
     }
 
     @GetMapping(path = "/confirm")
-    public String confirm(@RequestParam("token") String token) {
+    public LoginResponse confirm(@RequestParam("token") String token) {
         return registrationService.confirmToken(token);
     }
 }

@@ -46,7 +46,7 @@ public class WebSecurityConfig {
                     ObjectMapper mapper = new ObjectMapper();
                     response.setStatus(401);
                     responseMap.put("error", true);
-                    responseMap.put("message", "Unauthorized");
+                    responseMap.put("message", authException.getMessage());
                     response.setHeader("content-type", "application/json");
                     String responseMsg = mapper.writeValueAsString(responseMap);
                     response.getWriter().write(responseMsg);
@@ -56,7 +56,7 @@ public class WebSecurityConfig {
                 sessionCreationPolicy(SessionCreationPolicy.STATELESS).
                 and().
                 authenticationProvider(authenticationProvider).
-                addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).logout().logoutUrl("/api/v1/logout").addLogoutHandler(logoutHandler).logoutSuccessHandler(((request, response, authentication) -> {
+                addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).logout().logoutUrl("/api/v1/auth/logout").addLogoutHandler(logoutHandler).logoutSuccessHandler(((request, response, authentication) -> {
                     SecurityContextHolder.clearContext();
                 }));
 

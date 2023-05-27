@@ -25,18 +25,8 @@ public class LoginController {
 
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest request){
-        String token = loginService.login(request);
-        return new  LoginResponse(token);
+        return loginService.login(request);
     }
 
-//    private void revokeAllUserTokens(AppUser users) {
-//        var validUserTokens = tokenRepository.findAllValidTokenByUsers(users.getId());
-//        if (validUserTokens.isEmpty())
-//            return;
-//        validUserTokens.forEach(token -> {
-//            token.setExpired(true);
-//            token.setRevoked(true);
-//        });
-//        tokenRepository.saveAll(validUserTokens);
-//    }
+
 }

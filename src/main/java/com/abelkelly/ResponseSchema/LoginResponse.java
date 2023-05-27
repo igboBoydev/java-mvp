@@ -9,5 +9,6 @@ import lombok.*;
 @ToString
 public class LoginResponse {
     private String authToken;
+//    private String refreshToken;
 
 }

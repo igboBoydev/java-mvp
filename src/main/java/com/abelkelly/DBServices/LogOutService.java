@@ -1,5 +1,7 @@
 package com.abelkelly.DBServices;
 
+import com.abelkelly.Config.Helpers;
+import com.abelkelly.Token.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -10,22 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class LogOutService implements LogoutHandler {
+    private final TokenRepository tokenRepository;
+    private final Helpers helpers;
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        final String authHeader = request.getHeader("Authorization");
-        final String jwt;
-        if (authHeader == null ||!authHeader.startsWith("Bearer ")) {
-            return;
-        }
-        jwt = authHeader.substring(7);
-
-//        var storedToken = tokenRepository.findByToken(jwt)
-//                .orElse(null);
-//        if (storedToken != null) {
-//            storedToken.setExpired(true);
-//            storedToken.setRevoked(true);
-//            tokenRepository.save(storedToken);
-//            SecurityContextHolder.clearContext();
-//        }
+        System.out.println("hello world");
+        helpers.logout(request);
     }
 }
