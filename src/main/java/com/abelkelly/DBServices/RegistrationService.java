@@ -13,6 +13,7 @@ import com.abelkelly.ResponseSchema.LoginResponse;
 import com.abelkelly.Roles.AppUserRole;
 import com.abelkelly.Token.TokenRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.mail.MailException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,9 +46,14 @@ public class RegistrationService {
         );
 
         String link = "http://localhost:8080/api/v1/registration/confirm?token=" + token;
-        emailSender.send(
-                request.getEmail(),
-                buildEmail(request.getFirstName(), link));
+        try {
+            emailSender.send(
+                    request.getEmail(),
+                    buildEmail(request.getFirstName(), link));
+        }catch (MailException e){
+            System.out.println("exception = " + e);
+        }
+
         return token;
     }
 
