@@ -2,6 +2,7 @@ package com.abelkelly.Models;
 
 import com.abelkelly.Roles.AppUserRole;
 import com.abelkelly.Token.Token;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,6 +38,7 @@ public class AppUser implements UserDetails {
     private String firstName;
     private String lastName;
     private String email;
+    @JsonIgnore
     private String password;
     @Enumerated(EnumType.STRING)
     private AppUserRole appUserRole;
@@ -45,7 +47,7 @@ public class AppUser implements UserDetails {
 
 //    @OneToOne(mappedBy = "user")
 //    private RefreshToken refreshToken;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "users")
     private List<Token> token;
 

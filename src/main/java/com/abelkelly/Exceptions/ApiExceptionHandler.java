@@ -33,10 +33,9 @@ public class ApiExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(ExpiredJwtException.class)
     public ResponseEntity<ExpiredJwtException> handleExpiredJwtToken(ExpiredJwtException e){
-        System.out.println("exception here");
         HttpStatus badRequest = HttpStatus.UNAUTHORIZED;
         ExpiredJwtException jwtException = new ExpiredJwtException(e.getHeader(), e.getClaims(), "Jwt token expired");
-        return new ResponseEntity<ExpiredJwtException>(jwtException, badRequest);
+        return ResponseEntity.status(400).body(jwtException);
     }
 
     @ExceptionHandler(value = AccessDeniedException.class)
